@@ -1,1 +1,1 @@
-# -kapusta-project-frontend
+# kapusta-project-frontend
