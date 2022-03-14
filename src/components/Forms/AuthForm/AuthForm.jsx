@@ -3,15 +3,16 @@ import validator from 'validator';
 import { ReactComponent as GoogleLogo } from './google-logo.svg';
 import ControlButtonsContainer from '../../ControlButtonsContainer';
 import Button from '../../Button';
+import notification from '../../../utils/notification';
 import {
   StyledForm,
   StyledGoogleLoginBtn,
   StyledFormHelper,
   StyledInputLabel,
   StyledInput,
-} from './RegisterAndLoginForm.styled';
+} from './AuthForm.styled';
 
-function RegisterAndLoginForm() {
+function AuthForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -22,13 +23,13 @@ function RegisterAndLoginForm() {
     const isValidPassword = validator.isStrongPassword(password);
 
     if (!isValidEmail) {
-      alert('wrong email');
+      notification.warning('wrong email value');
       setEmail('');
       return;
     }
 
     if (!isValidPassword) {
-      alert('wrong password');
+      notification.warning("password doesn't meet the minimum requirements");
       setPassword('');
       return;
     }
@@ -85,6 +86,4 @@ function RegisterAndLoginForm() {
   );
 }
 
-RegisterAndLoginForm.propTypes = {};
-
-export default RegisterAndLoginForm;
+export default AuthForm;
