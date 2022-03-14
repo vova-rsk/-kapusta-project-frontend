@@ -1,11 +1,6 @@
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
-
-const BUTTON_TYPE = {
-  REGISTER_CONTROL: 'register',
-  CONFIRMATION_CONTROL: 'confirmation',
-  BALANCE_ENTRY_CONTROL: 'balance',
-};
+import { BUTTON_TYPE } from '../../utils/constants';
 
 const StyledButton = styled(Button)`
   display: flex;

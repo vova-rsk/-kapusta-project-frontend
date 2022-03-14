@@ -5,6 +5,9 @@ function Overlay({ handleClose, children }) {
   return <Container onClick={handleClose}>{children}</Container>;
 }
 
-Overlay.propTypes = {};
+Overlay.propTypes = {
+  children: PropTypes.element,
+  handleClose: PropTypes.func,
+};
 
 export default Overlay;

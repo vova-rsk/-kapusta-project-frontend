@@ -34,19 +34,23 @@ function ApproveModal({ onSuccess, onCancel, children }) {
         </SlyledCloseIconButton>
         <div>{children}</div>
         <ControlButtonsContainer>
-          <Button type="confirmation" handleAction={onSuccess}>
+          <Button name="confirmation" handleAction={onSuccess}>
             Да
           </Button>
-          <Button type="confirmation" handleAction={onCancel}>
+          <Button name="confirmation" handleAction={onCancel}>
             Нет
           </Button>
         </ControlButtonsContainer>
-        <Button type="balance">Да</Button>
+        <Button name="balance">Да</Button>
       </ApproveModalWindow>
     </Overlay>
   );
 }
 
-ApproveModal.propTypes = {};
+ApproveModal.propTypes = {
+  children: PropTypes.node,
+  onSuccess: PropTypes.func,
+  onCancel: PropTypes.func,
+};
 
 export default ApproveModal;
