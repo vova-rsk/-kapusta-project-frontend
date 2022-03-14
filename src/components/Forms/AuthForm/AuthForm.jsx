@@ -54,13 +54,10 @@ function AuthForm() {
           required={true}
           aria-describedby="user email"
           type="text"
-          disableUnderline={true}
           variant="standard"
           placeholder="your@email.com"
           value={email}
-          onChange={e => {
-            setEmail(e.target.value.trim());
-          }}
+          onChange={e => setEmail(e.target.value.trim())}
         />
 
         <StyledInputLabel htmlFor="password">Пароль:</StyledInputLabel>
@@ -69,13 +66,10 @@ function AuthForm() {
           required={true}
           aria-describedby="user password"
           type="password"
-          disableUnderline={true}
           variant="standard"
           placeholder="Пароль"
           value={password}
-          onChange={e => {
-            setPassword(e.target.value.trim());
-          }}
+          onChange={e => setPassword(e.target.value.trim())}
         />
         <ControlButtonsContainer>
           <Button name="register">Войти</Button>

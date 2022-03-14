@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import FormHelperText from '@mui/material/FormHelperText';
 import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
-import Input from '@mui/material/Input';
 
 export const StyledForm = styled('form')`
   display: flex;
@@ -77,7 +76,7 @@ export const StyledInputLabel = styled(InputLabel)`
   }
 `;
 
-export const StyledInput = styled(Input)`
+export const StyledInput = styled.input`
   margin-bottom: 30px;
   padding: 20px 17px;
   width: 100%;
@@ -90,12 +89,25 @@ export const StyledInput = styled(Input)`
   background-color: #f6f7fb;
   border-radius: 30px;
   border: none;
+  outline-color: #ff751d;
 
   &::placeholder {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.143;
+    letter-spacing: 0.04em;
     color: #a6abb9;
   }
 
   &:nth-of-type(2) {
+    display: flex;
+    align-items: baseline;
     margin-bottom: 40px;
+    font: large Verdana, sans-serif;
+    letter-spacing: 5px;
+  }
+
+  &:nth-of-type(2)::placeholder {
+    font-family: Roboto, sans-serif;
   }
 `;
