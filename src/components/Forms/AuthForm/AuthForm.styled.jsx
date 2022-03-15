@@ -15,6 +15,7 @@ export const StyledForm = styled('form')`
   @media screen and (min-width: 768px) {
     padding: 50px 85px 53px;
     width: 436px;
+    box-shadow: 0px 10px 60px rgba(170, 178, 197, 0.2);
   }
 `;
 
