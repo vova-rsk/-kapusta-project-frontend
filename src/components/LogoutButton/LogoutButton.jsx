@@ -1,17 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import IconButton from '@mui/material/IconButton';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { ReactComponent as ExitLogoSvg } from './exit-logo.svg';
 import { StyledButton, StyledSvgIcon } from './LogoutButton.styled';
+import ApproveModal from '../Modals/ApproveModal';
+import * as authOperations from '../../redux/auth/auth-operations';
 
-function LogoutButton({ handleClick }) {
+function LogoutButton() {
+  const dispatch = useDispatch();
   const { width } = useWindowDimensions();
+  const [showDialog, setShowDialog] = useState(false);
+
+  const handleUserLogout = () => {
+    dispatch(authOperations.logout());
+    setShowDialog(false);
+  };
 
   return (
-    <div>
+    <>
       {width >= 768 ? (
-        <StyledButton color="secondary" onClick={handleClick}>
+        <StyledButton color="secondary" onClick={() => setShowDialog(true)}>
           Выход
         </StyledButton>
       ) : (
@@ -19,7 +28,7 @@ function LogoutButton({ handleClick }) {
           color="primary"
           aria-label="upload picture"
           component="span"
-          onClick={handleClick}
+          onClick={() => setShowDialog(true)}
         >
           <StyledSvgIcon
             component={ExitLogoSvg}
@@ -28,12 +37,15 @@ function LogoutButton({ handleClick }) {
           />
         </IconButton>
       )}
-    </div>
+      {showDialog && (
+        <ApproveModal
+          title="Вы действительно хотите выйти?"
+          onSuccess={handleUserLogout}
+          onCancel={() => setShowDialog(false)}
+        />
+      )}
+    </>
   );
 }
-
-LogoutButton.propTypes = {
-  handleClick: PropTypes.func,
-};
 
 export default LogoutButton;

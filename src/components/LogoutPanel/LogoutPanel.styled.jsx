@@ -30,4 +30,9 @@ export const PersonalInfoContainer = styled.div`
   }
 `;
 
-export const StyledAvatar = styled(Avatar)``;
+export const StyledAvatar = styled(Avatar)`
+  width: 32px;
+  height: 32px;
+  color: #52555f;
+  background-color: #f5f6fa;
+`;

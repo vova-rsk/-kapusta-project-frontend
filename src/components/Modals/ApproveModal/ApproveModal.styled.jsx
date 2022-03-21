@@ -3,14 +3,20 @@ import IconButton from '@mui/material/IconButton';
 
 export const ApproveModalWindow = styled.div`
   position: relative;
-  padding: 50px 57px;
-  width: 380px;
+  padding: 60px 17px;
+  width: 300px;
   height: 194px;
   background-color: #fff;
   border: none;
   border-radius: 30px;
   box-shadow: 10px 10px 30px rgba(82, 85, 95, 0.4);
   overflow: hidden;
+
+  @media screen and (min-width: 768px) {
+    width: 380px;
+    padding-left: 57px;
+    padding-right: 57px;
+  }
 
   & div {
     margin-bottom: 20px;

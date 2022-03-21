@@ -4,12 +4,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import Overlay from '../Overlay';
 import ControlButtonsContainer from '../../ControlButtonsContainer';
 import Button from '../../Button';
+import Portal from '../../Portal';
 import {
   ApproveModalWindow,
   SlyledCloseIconButton,
 } from './ApproveModal.styled';
 
-function ApproveModal({ onSuccess, onCancel, children }) {
+function ApproveModal({ title, onSuccess, onCancel }) {
   useEffect(() => {
     const closingByEsc = e => {
       if (e.code === 'Escape') onCancel();
@@ -20,6 +21,7 @@ function ApproveModal({ onSuccess, onCancel, children }) {
     return () => {
       window.removeEventListener('keydown', onCancel);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const closingByClick = e => {
@@ -27,28 +29,29 @@ function ApproveModal({ onSuccess, onCancel, children }) {
   };
 
   return (
-    <Overlay handleClose={closingByClick}>
-      <ApproveModalWindow>
-        <SlyledCloseIconButton onClick={onCancel}>
-          <CloseIcon />
-        </SlyledCloseIconButton>
-        <div>{children}</div>
-        <ControlButtonsContainer>
-          <Button name="confirmation" handleAction={onSuccess}>
-            Да
-          </Button>
-          <Button name="confirmation" handleAction={onCancel}>
-            Нет
-          </Button>
-        </ControlButtonsContainer>
-        <Button name="balance">Да</Button>
-      </ApproveModalWindow>
-    </Overlay>
+    <Portal id="root">
+      <Overlay handleClose={closingByClick}>
+        <ApproveModalWindow>
+          <SlyledCloseIconButton onClick={onCancel}>
+            <CloseIcon />
+          </SlyledCloseIconButton>
+          <div>{title}</div>
+          <ControlButtonsContainer>
+            <Button name="confirmation" handleAction={onSuccess}>
+              Да
+            </Button>
+            <Button name="confirmation" handleAction={onCancel}>
+              Нет
+            </Button>
+          </ControlButtonsContainer>
+        </ApproveModalWindow>
+      </Overlay>
+    </Portal>
   );
 }
 
 ApproveModal.propTypes = {
-  children: PropTypes.node,
+  title: PropTypes.string,
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func,
 };

@@ -1,31 +1,32 @@
+import { useSelector } from 'react-redux';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
+import { getAuthStatus, getUserInfo } from '../../redux/auth/auth-selectors';
+import LogoutButton from '../LogoutButton';
 import {
   Container,
   StyledAvatar,
   PersonalInfoContainer,
 } from './LogoutPanel.styled';
-import LogoutButton from '../LogoutButton';
 
 function LogoutPanel() {
   const { width } = useWindowDimensions();
-  const auth = true;
+  const auth = useSelector(getAuthStatus);
+  const userInfo = useSelector(getUserInfo);
 
   return (
     <Container>
-      <PersonalInfoContainer>
-        <StyledAvatar
-          sx={{
-            width: '32px',
-            height: '32px',
-          }}
-        />
-        {auth && width >= 768 && <span>User name</span>}
-      </PersonalInfoContainer>
-      <LogoutButton
-        handleClick={() => {
-          alert('handleClick for logout!');
-        }}
-      />
+      {auth && (
+        <>
+          <PersonalInfoContainer>
+            <StyledAvatar
+              alt={userInfo.name}
+              src={'/static/images/avatar/1.jpg'}
+            />
+            {width >= 768 && <span>{userInfo.name}</span>}
+          </PersonalInfoContainer>
+          <LogoutButton />
+        </>
+      )}
     </Container>
   );
 }
