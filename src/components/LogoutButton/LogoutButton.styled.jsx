@@ -11,6 +11,7 @@ export const StyledButton = styled(Button)`
   letter-spacing: 0.04em;
   text-transform: capitalize;
   color: #52555f;
+  border-radius: 16px;
 
   &:hover {
     text-decoration: underline;
