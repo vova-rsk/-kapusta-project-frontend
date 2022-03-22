@@ -26,10 +26,10 @@ const authSlice = createSlice({
       state.isLoading = true;
     },
     [authOperations.signup.fulfilled]: (state, action) => {
-      state.token = action.payload.token;
-      state.user = action.payload.user;
+      // state.token = action.payload.token;
+      // state.user = action.payload.user;
       state.error = null;
-      state.isAuthorized = true;
+      // state.isAuthorized = true;
       state.isLoading = false;
       state.isError = false;
     },

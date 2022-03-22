@@ -5,11 +5,13 @@ export const signup = createAsyncThunk(
   'user/signup',
   async (userData, { rejectWithValue }) => {
     try {
-      console.log('request for registration');
-      const response = serviceApi.user.registerUser(userData);
-      console.log(response);
-    } catch (error) {
-      console.log(error.message);
+      const { data } = await serviceApi.user.signup(userData);
+      alert(
+        'Регистрация прошла успешно! Функционал подтверждения регистрции в разработке... ',
+      );
+    } catch ({ response }) {
+      const { code, message } = response.data;
+      return rejectWithValue({ code, message });
     }
   },
 );
@@ -18,9 +20,12 @@ export const login = createAsyncThunk(
   'user/login',
   async (userAuthData, { rejectWithValue }) => {
     try {
-      console.log('auth thunk: request for token');
-    } catch (error) {
-      console.log(error.message);
+      const { data } = await serviceApi.user.login(userAuthData);
+      serviceApi.token.set(data.result.token);
+      return data.result;
+    } catch ({ response }) {
+      const { code, message } = response.data;
+      return rejectWithValue({ code, message });
     }
   },
 );
@@ -31,10 +36,8 @@ export const logout = createAsyncThunk(
     try {
       await serviceApi.user.logout();
       serviceApi.token.unset();
-    } catch (error) {
-      const {
-        data: { code, message },
-      } = error.response;
+    } catch ({ response }) {
+      const { code, message } = response.data;
       return rejectWithValue({ code, message });
     }
   },
@@ -45,8 +48,9 @@ export const refresh = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       console.log('auth thunk: request for current user data');
-    } catch (error) {
-      console.log(error.message);
+    } catch ({ response }) {
+      const { code, message } = response.data;
+      return rejectWithValue({ code, message });
     }
   },
 );

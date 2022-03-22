@@ -13,17 +13,16 @@ const token = {
   },
 };
 
-const signup = async userData => {
-  return await axios.post('user/signup', userData);
-};
+const signup = async userData => await axios.post('user/signup', userData);
 
-const logout = async () => {
-  return await axios.post('user/logout');
-};
+const login = async userData => await axios.post('user/login', userData);
+
+const logout = async () => await axios.post('user/logout');
 
 const serviceApi = {
   user: {
     signup,
+    login,
     logout,
   },
   contacts: {},

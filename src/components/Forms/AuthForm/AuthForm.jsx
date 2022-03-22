@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import validator from 'validator';
+import { useDispatch } from 'react-redux';
+import * as authOperations from '../../../redux/auth/auth-operations';
 import { ReactComponent as GoogleLogo } from './google-logo.svg';
 import ControlButtonsContainer from '../../ControlButtonsContainer';
 import Button from '../../Button';
@@ -13,10 +15,11 @@ import {
 } from './AuthForm.styled';
 
 function AuthForm() {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = e => {
+  const handleClickRegistration = e => {
     e.preventDefault();
 
     const isValidEmail = validator.isEmail(email);
@@ -33,15 +36,39 @@ function AuthForm() {
       setPassword('');
       return;
     }
+
+    dispatch(authOperations.signup({ email, password }));
+    setEmail('');
+    setPassword('');
+  };
+
+  const handleClickLoginByEmail = e => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      console.log('Введите данные пользователя!');
+      return;
+    }
+
+    dispatch(authOperations.login({ email, password }));
+  };
+
+  const handleClickLoginByGoogle = e => {
+    e.preventDefault();
+    alert('KOKOKO by Google');
   };
 
   return (
     <div>
-      <StyledForm onSubmit={handleSubmit}>
+      <StyledForm>
         <StyledFormHelper id="my-helper-text">
           Вы можете авторизоваться с помощью Google Account:
         </StyledFormHelper>
-        <StyledGoogleLoginBtn type="submit" startIcon={<GoogleLogo />}>
+        <StyledGoogleLoginBtn
+          type="submit"
+          startIcon={<GoogleLogo />}
+          onClick={handleClickLoginByGoogle}
+        >
           Google
         </StyledGoogleLoginBtn>
         <StyledFormHelper id="my-helper-text" sx={{ textAlign: 'left' }}>
@@ -72,8 +99,12 @@ function AuthForm() {
           onChange={e => setPassword(e.target.value.trim())}
         />
         <ControlButtonsContainer>
-          <Button name="register">Войти</Button>
-          <Button name="register">Регистрация</Button>
+          <Button name="register" handleAction={handleClickLoginByEmail}>
+            Войти
+          </Button>
+          <Button name="register" handleAction={handleClickRegistration}>
+            Регистрация
+          </Button>
         </ControlButtonsContainer>
       </StyledForm>
     </div>
