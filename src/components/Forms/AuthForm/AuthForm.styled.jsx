@@ -37,7 +37,7 @@ export const StyledFormHelper = styled(FormHelperText)`
   @media screen and (min-width: 768px) {
     margin-bottom: 20px;
     font-size: 12px;
-    line-height: 1.667;
+    line-height: 1.167;
     text-align: left;
   }
 `;
@@ -73,7 +73,7 @@ export const StyledInputLabel = styled(InputLabel)`
   @media screen and (min-width: 768px) {
     margin-bottom: 10px;
     font-size: 12px;
-    line-height: 1.667;
+    line-height: 1.167;
   }
 `;
 

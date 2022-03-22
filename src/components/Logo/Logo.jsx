@@ -3,6 +3,7 @@ import SvgIcon from '@mui/material/SvgIcon';
 import Container from './Logo.styled';
 import { ReactComponent as LogoFrontSide } from './logo-front-side.svg';
 import { ReactComponent as LogoBackSide } from './logo-back-side.svg';
+import { ReactComponent as KapustaIconSvg } from './kapusta-icon-small.svg';
 
 function Logo() {
   return (
@@ -23,7 +24,13 @@ function Logo() {
               inheritViewBox={true}
             />
           </span>
-          <span>Kapu$ta</span>
+          <span>
+            <SvgIcon
+              component={KapustaIconSvg}
+              sx={{ width: '70px', height: '17px' }}
+              inheritViewBox={true}
+            />
+          </span>
         </div>
       </Link>
     </Container>
