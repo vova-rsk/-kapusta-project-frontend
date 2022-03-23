@@ -2,16 +2,16 @@ import { useState } from 'react';
 import validator from 'validator';
 import { useDispatch } from 'react-redux';
 import * as authOperations from '../../../redux/auth/auth-operations';
-import { ReactComponent as GoogleLogo } from './google-logo.svg';
 import ControlButtonsContainer from '../../ControlButtonsContainer';
 import Button from '../../Button';
+import GoogleLoginButton from '../../Buttons/GoogleLoginButton';
 import notification from '../../../utils/notification';
 import {
   StyledForm,
-  StyledGoogleLoginBtn,
   StyledFormHelper,
   StyledInputLabel,
   StyledInput,
+  GooleButtonContainer,
 } from './AuthForm.styled';
 
 function AuthForm() {
@@ -53,24 +53,15 @@ function AuthForm() {
     dispatch(authOperations.login({ email, password }));
   };
 
-  const handleClickLoginByGoogle = e => {
-    e.preventDefault();
-    alert('KOKOKO by Google');
-  };
-
   return (
     <div>
       <StyledForm>
         <StyledFormHelper id="my-helper-text">
           Вы можете авторизоваться с помощью Google Account:
         </StyledFormHelper>
-        <StyledGoogleLoginBtn
-          type="submit"
-          startIcon={<GoogleLogo />}
-          onClick={handleClickLoginByGoogle}
-        >
-          Google
-        </StyledGoogleLoginBtn>
+        <GooleButtonContainer>
+          <GoogleLoginButton />
+        </GooleButtonContainer>
         <StyledFormHelper id="my-helper-text" sx={{ textAlign: 'left' }}>
           Или зайти с помощью e-mail и пароля, предварительно
           зарегистрировавшись:
