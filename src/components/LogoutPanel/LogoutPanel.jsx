@@ -18,10 +18,7 @@ function LogoutPanel() {
       {auth && (
         <>
           <PersonalInfoContainer>
-            <StyledAvatar
-              alt={userInfo.name}
-              src={'/static/images/avatar/1.jpg'}
-            />
+            <StyledAvatar alt={userInfo.name} src={userInfo.avatarUrl} />
             {width >= 768 && <span>{userInfo.name}</span>}
           </PersonalInfoContainer>
           <LogoutButton />

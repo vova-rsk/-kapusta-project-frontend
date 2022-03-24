@@ -1,22 +1,26 @@
 import { useState } from 'react';
 import validator from 'validator';
-import { ReactComponent as GoogleLogo } from './google-logo.svg';
+import { useDispatch } from 'react-redux';
+import * as authOperations from '../../../redux/auth/auth-operations';
 import ControlButtonsContainer from '../../ControlButtonsContainer';
 import Button from '../../Button';
+import GoogleLoginButton from '../../Buttons/GoogleLoginButton';
 import notification from '../../../utils/notification';
+import { AUTH_TYPE } from '../../../utils/constants';
 import {
   StyledForm,
-  StyledGoogleLoginBtn,
   StyledFormHelper,
   StyledInputLabel,
   StyledInput,
+  GooleButtonContainer,
 } from './AuthForm.styled';
 
 function AuthForm() {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = e => {
+  const handleClickRegistration = e => {
     e.preventDefault();
 
     const isValidEmail = validator.isEmail(email);
@@ -33,17 +37,34 @@ function AuthForm() {
       setPassword('');
       return;
     }
+
+    dispatch(authOperations.signup({ email, password }));
+    setEmail('');
+    setPassword('');
+  };
+
+  const handleClickLoginByEmail = e => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      console.log('Введите данные пользователя!');
+      return;
+    }
+
+    dispatch(
+      authOperations.login({ authType: AUTH_TYPE.BY_EMAIL, email, password }),
+    );
   };
 
   return (
     <div>
-      <StyledForm onSubmit={handleSubmit}>
+      <StyledForm>
         <StyledFormHelper id="my-helper-text">
           Вы можете авторизоваться с помощью Google Account:
         </StyledFormHelper>
-        <StyledGoogleLoginBtn type="submit" startIcon={<GoogleLogo />}>
-          Google
-        </StyledGoogleLoginBtn>
+        <GooleButtonContainer>
+          <GoogleLoginButton />
+        </GooleButtonContainer>
         <StyledFormHelper id="my-helper-text" sx={{ textAlign: 'left' }}>
           Или зайти с помощью e-mail и пароля, предварительно
           зарегистрировавшись:
@@ -72,8 +93,12 @@ function AuthForm() {
           onChange={e => setPassword(e.target.value.trim())}
         />
         <ControlButtonsContainer>
-          <Button name="register">Войти</Button>
-          <Button name="register">Регистрация</Button>
+          <Button name="register" handleAction={handleClickLoginByEmail}>
+            Войти
+          </Button>
+          <Button name="register" handleAction={handleClickRegistration}>
+            Регистрация
+          </Button>
         </ControlButtonsContainer>
       </StyledForm>
     </div>

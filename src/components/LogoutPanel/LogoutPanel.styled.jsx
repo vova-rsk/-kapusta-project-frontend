@@ -11,6 +11,7 @@ export const PersonalInfoContainer = styled.div`
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
+  margin-right: 8px;
   padding-right: 20px;
   border-right: 1px solid #e0e5eb;
 

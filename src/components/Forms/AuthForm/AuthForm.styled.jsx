@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import FormHelperText from '@mui/material/FormHelperText';
-import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 
 export const StyledForm = styled('form')`
@@ -42,24 +41,8 @@ export const StyledFormHelper = styled(FormHelperText)`
   }
 `;
 
-export const StyledGoogleLoginBtn = styled(Button)`
+export const GooleButtonContainer = styled.div`
   margin: 0 auto 30px;
-  margin-left: auto;
-  width: 122px;
-  height: 40px;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.143;
-  letter-spacing: 0.02em;
-  text-transform: capitalize;
-  color: #000;
-  background: #f6f7fb;
-  border-radius: 26px;
-
-  &:hover {
-    color: #fff;
-    background-color: #ff751d;
-  }
 `;
 
 export const StyledInputLabel = styled(InputLabel)`

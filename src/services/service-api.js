@@ -13,21 +13,31 @@ const token = {
   },
 };
 
-const signup = async userData => {
-  return await axios.post('user/signup', userData);
+const authorizationType = {
+  set(type) {
+    axios.defaults.headers.common.authorizationType = type;
+  },
+  unset() {
+    delete axios.defaults.headers.common.authorizationType;
+  },
 };
 
-const logout = async () => {
-  return await axios.post('user/logout');
-};
+const signup = async userData => await axios.post('user/signup', userData);
+const login = async userData => await axios.post('user/login', userData);
+const logout = async () => await axios.post('user/logout');
+const googleLogin = async token =>
+  await axios.post('user/google-auth', { token });
 
 const serviceApi = {
   user: {
     signup,
+    login,
     logout,
+    googleLogin,
   },
   contacts: {},
   token,
+  authorizationType,
 };
 
 export default serviceApi;

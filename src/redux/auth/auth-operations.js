@@ -1,15 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import serviceApi from '../../services/service-api';
+import { AUTH_TYPE } from '../../utils/constants';
 
 export const signup = createAsyncThunk(
   'user/signup',
   async (userData, { rejectWithValue }) => {
     try {
-      console.log('request for registration');
-      const response = serviceApi.user.registerUser(userData);
-      console.log(response);
-    } catch (error) {
-      console.log(error.message);
+      const { data } = await serviceApi.user.signup(userData);
+      alert(
+        'Регистрация прошла успешно! Функционал подтверждения регистрции в разработке... ',
+      );
+    } catch ({ response }) {
+      const { code, message } = response.data;
+      return rejectWithValue({ code, message });
     }
   },
 );
@@ -18,23 +21,35 @@ export const login = createAsyncThunk(
   'user/login',
   async (userAuthData, { rejectWithValue }) => {
     try {
-      console.log('auth thunk: request for token');
-    } catch (error) {
-      console.log(error.message);
+      const { data } =
+        userAuthData.authType === AUTH_TYPE.BY_GOOGLE
+          ? await serviceApi.user.googleLogin(userAuthData.token)
+          : await serviceApi.user.login({
+              email: userAuthData.email,
+              password: userAuthData.password,
+            });
+
+      data.result.authorizationType = userAuthData.authType;
+      serviceApi.token.set(data.result.token);
+      serviceApi.authorizationType.set(userAuthData.authType);
+
+      return data.result;
+    } catch ({ response }) {
+      const { code, message } = response.data;
+      return rejectWithValue({ code, message });
     }
   },
 );
 
 export const logout = createAsyncThunk(
   'user/logout',
-  async (_, { rejectWithValue }) => {
+  async (authType, { rejectWithValue }) => {
     try {
       await serviceApi.user.logout();
       serviceApi.token.unset();
-    } catch (error) {
-      const {
-        data: { code, message },
-      } = error.response;
+      serviceApi.authorizationType.unset();
+    } catch ({ response }) {
+      const { code, message } = response.data;
       return rejectWithValue({ code, message });
     }
   },
@@ -45,8 +60,9 @@ export const refresh = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       console.log('auth thunk: request for current user data');
-    } catch (error) {
-      console.log(error.message);
+    } catch ({ response }) {
+      const { code, message } = response.data;
+      return rejectWithValue({ code, message });
     }
   },
 );
