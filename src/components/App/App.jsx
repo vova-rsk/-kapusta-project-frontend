@@ -1,11 +1,11 @@
 import Container from './App.styled';
-import AuthView from './views/AuthView';
-import HeaderView from './components/Header';
+import AuthView from '../../views/AuthView';
+import Header from '../Header';
 
 function App() {
   return (
     <Container>
-      <HeaderView />
+      <Header />
       <AuthView />
     </Container>
   );
