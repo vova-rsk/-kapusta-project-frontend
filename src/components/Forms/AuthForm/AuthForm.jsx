@@ -6,6 +6,7 @@ import ControlButtonsContainer from '../../ControlButtonsContainer';
 import Button from '../../Button';
 import GoogleLoginButton from '../../Buttons/GoogleLoginButton';
 import notification from '../../../utils/notification';
+import { AUTH_TYPE } from '../../../utils/constants';
 import {
   StyledForm,
   StyledFormHelper,
@@ -50,7 +51,9 @@ function AuthForm() {
       return;
     }
 
-    dispatch(authOperations.login({ email, password }));
+    dispatch(
+      authOperations.login({ authType: AUTH_TYPE.BY_EMAIL, email, password }),
+    );
   };
 
   return (

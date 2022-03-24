@@ -3,6 +3,7 @@ import * as authOperations from './auth-operations';
 
 const initialState = {
   isAuthorized: false,
+  authorizationType: null,
   isLoading: false,
   isError: false,
   token: null,
@@ -46,6 +47,7 @@ const authSlice = createSlice({
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isAuthorized = true;
+      state.authorizationType = action.payload.authorizationType;
       state.error = null;
       state.isLoading = false;
       state.isError = false;
@@ -64,6 +66,7 @@ const authSlice = createSlice({
       state.token = null;
       state.error = null;
       state.isAuthorized = false;
+      state.authorizationType = null;
       state.isLoading = false;
       state.isError = false;
     },

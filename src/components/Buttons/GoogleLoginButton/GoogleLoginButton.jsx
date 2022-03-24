@@ -1,57 +1,36 @@
 import { GoogleLogin } from 'react-google-login';
-import { useGoogleLogin } from 'react-google-login';
+import { useDispatch } from 'react-redux';
 import { ReactComponent as GoogleLogo } from './google-logo.svg';
 import StyledButton from './GoogleLoginButton.styled';
+import * as authOperations from '../../../redux/auth/auth-operations';
+import { AUTH_TYPE } from '../../../utils/constants';
 
-const AUTH_URI =
-  process.env.REACT_APP_GOOGLE_AUTH_URI || process.env.GOOGLE_AUTH_URI;
 const CLIENT_ID =
   process.env.REACT_APP_GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID;
-const CLIENT_SECRET =
-  process.env.REACT_APP_GOOGLE_CLIENT_SECRET ||
-  process.env.GOOGLE_CLIENT_SECRET;
-const REDIRECT_URI =
-  process.env.REACT_APP_GOOGLE_REDIRECT_URI || process.env.GOOGLE_REDIRECT_URI;
-const SCOPE = process.env.REACT_APP_GOOGLE_SCOPE || process.env.GOOGLE_SCOPE;
-const RESPONSE_TYPE = 'code';
 const COOKIE_POLICY = 'single_host_origin';
 
-const uri = `${AUTH_URI}?redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&client_id=${CLIENT_ID}&scope=${SCOPE}`;
-
 function GoogleLoginButton() {
-  // const { signIn, loaded } = useGoogleLogin({
-  //   // onSuccess,
-  //   // onAutoLoadFinished,
-  //   // clientId:CLIENT_ID,
-  //   // cookiePolicy:COOKIE_POLICY,
-  //   // loginHint,
-  //   // hostedDomain,
-  //   // autoLoad,
-  //   // isSignedIn,
-  //   // fetchBasicProfile,
-  //   // redirectUri:REDIRECT_URI,
-  //   // discoveryDocs,
-  //   // onFailure,
-  //   // uxMode,
-  //   // scope:SCOPE,
-  //   // accessType,
-  //   // responseType:RESPONSE_TYPE,
-  //   // jsSrc,
-  //   // onRequest,
-  //   prompt
-  // });
+  const dispatch = useDispatch();
 
   const responseGoogle = response => {
-    console.log(response);
+    dispatch(
+      authOperations.login({
+        authType: AUTH_TYPE.BY_GOOGLE,
+        token: response.tokenId,
+      }),
+    );
   };
-  console.log(uri);
+
+  const responseFailure = async response => {
+    console.log('Oops, something got wrong!');
+  };
+
   return (
     <GoogleLogin
       clientId={CLIENT_ID}
-      redirectUri={REDIRECT_URI}
+      cookiePolicy={COOKIE_POLICY}
       onSuccess={responseGoogle}
-      onFailure={responseGoogle}
-      // cookiePolicy={'single_host_origin'}
+      onFailure={responseFailure}
       render={renderProps => (
         <StyledButton
           onClick={renderProps.onClick}

@@ -1,19 +1,21 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import IconButton from '@mui/material/IconButton';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { ReactComponent as ExitLogoSvg } from './exit-logo.svg';
 import { StyledButton, StyledSvgIcon } from './LogoutButton.styled';
 import ApproveModal from '../Modals/ApproveModal';
 import * as authOperations from '../../redux/auth/auth-operations';
+import { getAuthorizationType } from '../../redux/auth/auth-selectors';
 
 function LogoutButton() {
   const dispatch = useDispatch();
+  const currentAuthType = useSelector(getAuthorizationType);
   const { width } = useWindowDimensions();
   const [showDialog, setShowDialog] = useState(false);
 
   const handleUserLogout = () => {
-    dispatch(authOperations.logout());
+    dispatch(authOperations.logout(currentAuthType));
     setShowDialog(false);
   };
 
