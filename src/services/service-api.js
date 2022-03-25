@@ -1,45 +1,70 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8080';
-
-axios.defaults.baseURL = BASE_URL;
-
-const token = {
-  set(token) {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+const URL = {
+  USER: {
+    SIGNUP: 'user/signup',
+    LOGIN: 'user/login',
+    LOGOUT: 'user/logout',
+    REFRESH: 'user/current',
+    GOOGLE_AUTH: 'user/google-auth',
   },
-  unset() {
-    axios.defaults.headers.common.Authorization = '';
-  },
+  TRANSACTIONS: '/api/transactions',
 };
 
-const authorizationType = {
-  set(type) {
-    axios.defaults.headers.common.authorizationType = type;
-  },
-  unset() {
-    delete axios.defaults.headers.common.authorizationType;
-  },
-};
-
-const signup = async userData => await axios.post('user/signup', userData);
-const login = async userData => await axios.post('user/login', userData);
-const logout = async () => await axios.post('user/logout');
-const refresh = async () => await axios.get('user/current');
-const googleLogin = async token =>
-  await axios.post('user/google-auth', { token });
+axios.defaults.baseURL =
+  process.env.REACT_APP_BACKEND_HOST || process.env.BACKEND_HOST;
 
 const serviceApi = {
-  user: {
-    signup,
-    login,
-    logout,
-    refresh,
-    googleLogin,
+  token: {
+    set: token => {
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+    },
+    unset: () => {
+      axios.defaults.headers.common.Authorization = '';
+    },
   },
-  transactions: {},
-  token,
-  authorizationType,
+  authorizationType: {
+    set: type => {
+      axios.defaults.headers.common.authorizationType = type;
+    },
+    unset: () => {
+      delete axios.defaults.headers.common.authorizationType;
+    },
+  },
+  // ========= user service api =========
+  user: {
+    signup: async userData => {
+      return await axios.post(URL.USER.SIGNUP, userData);
+    },
+    login: async userData => {
+      return await axios.post(URL.USER.LOGIN, userData);
+    },
+    logout: async () => {
+      return await axios.post(URL.USER.LOGOUT);
+    },
+    refresh: async () => {
+      return await axios.get(URL.USER.REFRESH);
+    },
+    googleLogin: async token => {
+      return await axios.post(URL.USER.GOOGLE_AUTH, { token });
+    },
+  },
+  // ========= transactions service api =========
+  categories: {},
+  // ========= transactions service api =========
+  transactions: {
+    getSome: reqData => {
+      return axios.get(URL.TRANSACTIONS);
+    },
+    postOne: reqData => {
+      return axios.post(URL.TRANSACTIONS, reqData);
+    },
+    deleteOne: transactionId => {
+      return axios.delete(`${URL.TRANSACTIONS}/${transactionId}`);
+    },
+  },
+  // ========= reports service api =========
+  reports: {},
 };
 
 export default serviceApi;
