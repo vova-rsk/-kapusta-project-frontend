@@ -12,10 +12,10 @@ function AuthView() {
   const auth = useSelector(getAuthStatus);
 
   useEffect(() => {
-    const { from } = location.state;
+    const pathTo = location?.state?.from?.pathname || 'finance';
 
     if (auth) {
-      navigate(`../${from.pathname}` || '../finance');
+      navigate(`../${pathTo}`);
     }
   }, [auth, location, navigate]);
 
