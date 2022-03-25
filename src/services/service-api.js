@@ -25,6 +25,7 @@ const authorizationType = {
 const signup = async userData => await axios.post('user/signup', userData);
 const login = async userData => await axios.post('user/login', userData);
 const logout = async () => await axios.post('user/logout');
+const refresh = async () => await axios.get('user/current');
 const googleLogin = async token =>
   await axios.post('user/google-auth', { token });
 
@@ -33,9 +34,10 @@ const serviceApi = {
     signup,
     login,
     logout,
+    refresh,
     googleLogin,
   },
-  contacts: {},
+  transactions: {},
   token,
   authorizationType,
 };

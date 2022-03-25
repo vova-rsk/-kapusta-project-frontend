@@ -1,5 +1,5 @@
 import Logo from '../Logo';
-import Container from './Header.styled';
+import Container from './ApplicationBar.styled';
 import LogoutPanel from '../LogoutPanel';
 
 function HeaderView() {
