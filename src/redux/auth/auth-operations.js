@@ -57,12 +57,29 @@ export const logout = createAsyncThunk(
 
 export const refresh = createAsyncThunk(
   'user/refresh',
-  async (_, { rejectWithValue }) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
-      console.log('auth thunk: request for current user data');
+      const state = getState();
+      const persistedToken = state.auth.token;
+      const persistedAuthType = state.auth.authorizationType;
+
+      if (!persistedToken || !persistedAuthType) {
+        return rejectWithValue({
+          status: null,
+          statusText: 'No token or auth status found',
+        });
+      }
+
+      serviceApi.token.set(persistedToken);
+      serviceApi.authorizationType.set(persistedAuthType);
+
+      const { data } = await serviceApi.user.refresh();
+
+      return data.result;
     } catch ({ response }) {
-      const { code, message } = response.data;
-      return rejectWithValue({ code, message });
+      const { status, statusText } = response.data;
+      alert(status);
+      return rejectWithValue({ status, statusText });
     }
   },
 );

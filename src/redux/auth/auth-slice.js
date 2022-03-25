@@ -80,7 +80,7 @@ const authSlice = createSlice({
       state.isLoading = true;
     },
     [authOperations.refresh.fulfilled]: (state, action) => {
-      state.user = action.payload;
+      state.user = action.payload.user;
       state.error = null;
       state.isAuthorized = true;
       state.isLoading = false;

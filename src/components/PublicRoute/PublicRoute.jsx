@@ -1,4 +1,4 @@
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getAuthStatus } from '../../redux/auth/auth-selectors';
 
@@ -13,7 +13,8 @@ const PublicRoute = ({
 
   return (
     <Route {...routeProps}>
-      {shouldRedirect ? <Redirect to={redirectTo} /> : children}
+      {/* { ? <Redirect to={redirectTo} /> : children} */}
+      {children}
     </Route>
   );
 };
