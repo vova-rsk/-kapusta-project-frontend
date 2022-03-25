@@ -8,6 +8,7 @@ const URL = {
     REFRESH: 'user/current',
     GOOGLE_AUTH: 'user/google-auth',
   },
+  CATEGORIES: '/api/categories',
   TRANSACTIONS: '/api/transactions',
 };
 
@@ -50,7 +51,14 @@ const serviceApi = {
     },
   },
   // ========= transactions service api =========
-  categories: {},
+  categories: {
+    getAll: () => {
+      return axios.get(URL.CATEGORIES);
+    },
+    postOne: categoryData => {
+      return axios.post(URL.CATEGORIES, categoryData);
+    },
+  },
   // ========= transactions service api =========
   transactions: {
     getSome: reqData => {
