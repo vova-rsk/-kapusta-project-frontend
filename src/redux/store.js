@@ -12,6 +12,7 @@ import {
 } from 'redux-persist';
 import authReducer from './auth/auth-slice';
 import categoriesReducer from './categories/categories-slice';
+import balanceReducer from './balance/balance-slice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -24,6 +25,7 @@ const authPersistReducer = persistReducer(authPersistConfig, authReducer);
 const rootReducer = combineReducers({
   auth: authPersistReducer,
   categories: categoriesReducer,
+  balance: balanceReducer,
 });
 
 export const store = configureStore({
