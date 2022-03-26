@@ -9,6 +9,7 @@ const URL = {
     GOOGLE_AUTH: 'user/google-auth',
   },
   CATEGORIES: '/api/categories',
+  BALANCE: '/api/balance',
   TRANSACTIONS: '/api/transactions',
 };
 
@@ -57,6 +58,15 @@ const serviceApi = {
     },
     postOne: categoryData => {
       return axios.post(URL.CATEGORIES, categoryData);
+    },
+  },
+  // ========= balance service api =========
+  balance: {
+    get: () => {
+      return axios.get(URL.BALANCE);
+    },
+    postEntryFee: value => {
+      return axios.post(URL.BALANCE, { value });
     },
   },
   // ========= transactions service api =========

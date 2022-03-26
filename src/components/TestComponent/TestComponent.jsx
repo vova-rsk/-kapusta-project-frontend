@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import * as categoriesOperations from '../../../redux/categories/categories-operations';
+import * as categoriesOperations from '../../redux/categories/categories-operations';
+import * as balanceOperations from '../../redux/balance/balance-operations';
 
 function TestComponent() {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ function TestComponent() {
 
   useEffect(() => {
     dispatch(categoriesOperations.getAll());
+    dispatch(balanceOperations.get());
   }, [dispatch]);
 
   return (

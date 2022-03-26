@@ -5,8 +5,6 @@ import * as authOperations from '../../redux/auth/auth-operations';
 import Container from './App.styled';
 import ApplicationBar from '../ApplicationBar';
 
-import TestComponent from './TestComponent'; ///////////
-
 function App() {
   const dispatch = useDispatch();
 
@@ -19,7 +17,6 @@ function App() {
     <Container>
       <ApplicationBar />
       <Outlet />
-      <TestComponent /> {/* /////////////// */}
     </Container>
   );
 }
