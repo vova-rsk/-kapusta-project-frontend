@@ -50,7 +50,7 @@ const serviceApi = {
       return await axios.post(URL.USER.GOOGLE_AUTH, { token });
     },
   },
-  // ========= transactions service api =========
+  // ========= categories service api =========
   categories: {
     getAll: () => {
       return axios.get(URL.CATEGORIES);
