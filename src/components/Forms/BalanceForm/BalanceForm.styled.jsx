@@ -63,6 +63,7 @@ export const MessageContainer = styled.div`
 
   @media screen and (min-width: 768px) {
     left: 0;
+    margin-top: 7px;
   }
 `;
 

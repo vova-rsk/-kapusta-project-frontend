@@ -35,7 +35,7 @@ export const Container = styled.div`
 
 export const StyledInput = styled.input`
     padding:12px 48px 12px 17px;
-    width:125px;
+    width:${({ isReportsStyling }) => (isReportsStyling ? '183px' : '125px')};
     height:44px;
     font-weight: 700;
     font-size: 12px;
@@ -46,14 +46,12 @@ export const StyledInput = styled.input`
     color: #000;
     background-color:transparent;
     border: 1px solid #fff;
-    border-radius: 22px 0px 0px 22px;
-
+    border-radius:${({ isReportsStyling }) =>
+      isReportsStyling ? '22px' : '16px 0 0 16px'};
+          
     @media screen and (min-width:768px) {
-        margin-right:${({ isReportsStyling }) =>
-          isReportsStyling ? '183px' : '125px'};
-        border-radius:${({ isReportsStyling }) =>
-          isReportsStyling ? '22px' : '16px'};
-
+        width:125px;
+        border-radius: 16px;
 
     &:focus{
         outline-color:#ff751d;
