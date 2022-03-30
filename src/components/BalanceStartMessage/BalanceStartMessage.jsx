@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
 import Container from './BalanceStartMessage.styled';
 
-function BalanceStartMessage(props) {
+function BalanceStartMessage() {
   return (
     <Container>
       <div>
@@ -13,7 +12,5 @@ function BalanceStartMessage(props) {
     </Container>
   );
 }
-
-BalanceStartMessage.propTypes = {};
 
 export default BalanceStartMessage;
