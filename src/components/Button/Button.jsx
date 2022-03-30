@@ -4,7 +4,12 @@ import { BUTTON_TYPE } from '../../utils/constants';
 
 function Button({ name, disabled = false, handleAction, children }) {
   return (
-    <StyledButton type={name} disabled={disabled} onClick={handleAction}>
+    <StyledButton
+      type="button"
+      name={name}
+      disabled={disabled}
+      onClick={handleAction}
+    >
       {children}
     </StyledButton>
   );

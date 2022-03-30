@@ -18,21 +18,21 @@ const StyledButton = styled(Button)`
   color: #52555f;
 
   background-color: ${props =>
-    props.type === BUTTON_TYPE.REGISTER_CONTROL ? '#f6f7fb' : 'transparent'};
+    props.name === BUTTON_TYPE.REGISTER_CONTROL ? '#f6f7fb' : 'transparent'};
   border-width: ${props =>
-    props.type === BUTTON_TYPE.REGISTER_CONTROL ? 0 : '1px'};
+    props.name === BUTTON_TYPE.REGISTER_CONTROL ? 0 : '1px'};
   border-style: solid;
   border-color: ${props =>
-    props.type === BUTTON_TYPE.CONFIRMATION_CONTROL ? '#f6f7fc' : '#fff'};
+    props.name === BUTTON_TYPE.CONFIRMATION_CONTROL ? '#f6f7fc' : '#fff'};
   border-radius: 16px;
   box-shadow: ${props =>
-    props.type === BUTTON_TYPE.REGISTER_CONTROL
+    props.name === BUTTON_TYPE.REGISTER_CONTROL
       ? '1px 3px 5px rgba(82, 85, 95, 0.15)'
       : 'none'};
 
   @media screen and (max-width: 767px) {
     border-radius: ${props =>
-      props.type === BUTTON_TYPE.BALANCE_ENTRY_CONTROL && '0px 22px 22px 0px'};
+      props.name === BUTTON_TYPE.BALANCE_ENTRY_CONTROL && '0px 22px 22px 0px'};
   }
 
   &:hover {
