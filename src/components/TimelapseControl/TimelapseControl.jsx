@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import SvgIcon from '@mui/material/SvgIcon';
 import { Container } from './TimelapseControl.styled';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import SliderControl from '../SliderControl';
 
 function TimelapseControl() {
   const [date, setDate] = useState(new Date());
@@ -13,13 +11,13 @@ function TimelapseControl() {
     return `${monthName} ${date.getFullYear()}`;
   };
 
-  const handleChange = type => {
+  const handleChangeLeft = type => {
     var now = new Date();
 
-    if (!['increment', 'decrement'].includes(type)) return;
+    if (!['prev', 'next'].includes(type)) return;
 
     const newDate =
-      type === 'increment'
+      type === 'next'
         ? new Date(date.getFullYear(), date.getMonth() + 1)
         : new Date(date.getFullYear(), date.getMonth() - 1);
 
@@ -31,23 +29,10 @@ function TimelapseControl() {
   return (
     <Container>
       <span>Текущий период:</span>
-      <div>
-        <span onClick={() => handleChange('decrement')}>
-          <SvgIcon
-            component={ArrowBackIosNewIcon}
-            sx={{ width: '14px', height: '14px' }}
-            inheritViewBox={true}
-          />
-        </span>
-        <span>{showTimelapse(date)}</span>
-        <span onClick={() => handleChange('increment')}>
-          <SvgIcon
-            component={ArrowForwardIosIcon}
-            sx={{ width: '14px', height: '14px' }}
-            inheritViewBox={true}
-          />
-        </span>
-      </div>
+      <SliderControl
+        value={showTimelapse(date)}
+        handleChange={handleChangeLeft}
+      />
     </Container>
   );
 }
